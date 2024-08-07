@@ -12,7 +12,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
 @Configuration
 public class SecurityConfig {
 
@@ -23,10 +22,10 @@ public class SecurityConfig {
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/", "/home").permitAll() // Permit access to home
                         .requestMatchers("/list/**").permitAll()
-                        .requestMatchers("/blist/**").permitAll() // Permit access to list and its subpaths// Permit access to buy
+                        .requestMatchers("/blist/**").permitAll() // Permit access to list and its subpaths
                         .requestMatchers("/saveMsg").permitAll() // Permit access to saveMsg
                         .requestMatchers("/Assets/**").permitAll()
-                        .requestMatchers("login").permitAll()// Permit access to assets
+                        .requestMatchers("/login").permitAll() // Correct path for login
                         .anyRequest().authenticated()) // Require authentication for other requests
 
                 .formLogin((form) -> form
@@ -34,27 +33,27 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/dashboard")
                         .failureUrl("/login?error=true")
                         .permitAll())
-                         .logout((logout) -> logout
+                .logout((logout) -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/login?logout=true")
                         .invalidateHttpSession(true)
                         .permitAll());
-             // Use default HTTP Basic authentication
 
         return http.build();
     }
 
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-        UserDetails Admin = User.withDefaultPasswordEncoder().
-                username("admin").
-                password("admin").
-                roles("ADMIN","USER").
-                build();
-        UserDetails user = User.withDefaultPasswordEncoder().
-                username("user").
-                password("user").
-                roles("USER").build();
+        UserDetails Admin = User.withDefaultPasswordEncoder()
+                .username("admin")
+                .password("admin")
+                .roles("ADMIN", "USER")
+                .build();
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("user")
+                .password("user")
+                .roles("USER")
+                .build();
 
         return new InMemoryUserDetailsManager(Admin, user);
     }
