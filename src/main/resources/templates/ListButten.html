@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoe Categories</title>
+    <script>
+        function updateList() {
+            const runningShoes = document.getElementById('runningShoes').checked;
+            const basketballShoes = document.getElementById('basketballShoes').checked;
+            const casualShoes = document.getElementById('casualShoes').checked;
+
+            const url = `/list?runningShoes=${runningShoes}&BasketballShoes=${basketballShoes}&CasualShoes=${casualShoes}`;
+            window.location.href = url;
+        }
+    </script>
+</head>
+<div th:replace="~{style :: style}">...</div>
+<body>
+<div class="container">
+    <h1>Select Shoe Categories</h1>
+    <div>
+        <input type="checkbox" id="runningShoes" name="runningShoes" checked>
+        <label for="runningShoes">Running Shoes</label>
+    </div>
+    <div>
+        <input type="checkbox" id="basketballShoes" name="basketballShoes" checked>
+        <label for="basketballShoes">Basketball Shoes</label>
+    </div>
+    <div>
+        <input type="checkbox" id="casualShoes" name="casualShoes" checked>
+        <label for="casualShoes">Casual Shoes</label>
+    </div>
+    <button onclick="updateList()">Update List</button>
+</div>
+<div th:replace="~{footer :: footer}">...</div>
+</body>
+</html>

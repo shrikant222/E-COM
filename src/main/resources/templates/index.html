@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Nike Store</title>
+    <link rel="icon" type="image/x-icon" href="../Assets/images/jordan.png">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+        }
+
+        .navTop, .navBottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navItem {
+            display: flex;
+            align-items: center;
+        }
+
+        .navItem img {
+            width: 50px;
+            margin-right: 10px;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+        }
+
+        .searchInput {
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .searchIcon {
+            margin-left: 10px;
+        }
+
+        .limitedOffer {
+            background-color: red;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .menuItem {
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .slider {
+            display: flex;
+            overflow-x: scroll;
+            padding: 20px 0;
+            background-color: #000;
+        }
+
+        .sliderWrapper {
+            display: flex;
+        }
+
+        .sliderItem {
+            position: relative;
+            margin: 0 10px;
+        }
+
+        .sliderImg {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .sliderBg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .sliderTitle, .sliderPrice, .buyButton {
+            position: absolute;
+            color: #fff;
+            z-index: 10;
+        }
+
+        .sliderTitle {
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+        }
+
+        .sliderPrice {
+            bottom: 60px;
+            left: 20px;
+            font-size: 18px;
+        }
+
+        .buyButton {
+            bottom: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: red;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .feature {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            margin: 0 10px;
+        }
+
+        .featureIcon {
+            width: 50px;
+        }
+
+        .product {
+            display: flex;
+            padding: 20px;
+            background-color: #fff;
+            margin-top: 20px;
+        }
+
+        .productImg {
+            width: 50%;
+        }
+
+        .productDetails {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .productTitle {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .productPrice {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .productDesc {
+            margin-bottom: 20px;
+        }
+
+        .colors, .sizes {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .color, .size {
+            width: 30px;
+            height: 30px;
+            background-color: #ccc;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .payButton {
+            background-color: red;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .gallery, .newSeason {
+            display: flex;
+            padding: 20px;
+            background-color: #fff;
+            margin-top: 20px;
+        }
+
+        .galleryItem, .nsItem {
+            flex: 1;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        .galleryTitle, .nsTitle, .nsTitleSm {
+            position: absolute;
+            z-index: 10;
+            color: #fff;
+        }
+
+        .galleryTitle {
+            bottom: 20px;
+            left: 20px;
+            font-size: 24px;
+        }
+
+        .nsTitleSm {
+            top: 20px;
+            left: 20px;
+        }
+
+        .nsTitle {
+            top: 40px;
+            left: 20px;
+            font-size: 24px;
+        }
+
+        .nsButton {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: red;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .footerMenu {
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .fMenuTitle {
+            margin-bottom: 10px;
+        }
+
+        .fList {
+            list-style: none;
+            padding: 0;
+        }
+
+        .fListItem {
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        .fMail, .fIcons {
+            display: flex;
+            align-items: center;
+        }
+
+        .fInput {
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .fButton {
+            background-color: red;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .fIcons img {
+            width: 30px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<nav id="nav">
+    <div class="navTop">
+        <div class="navItem">
+            <img src="../Assets/images/sneakers.png" alt="">
+        </div>
+        <div class="navItem">
+            <div class="search">
+                <input type="text" placeholder="Search..." class="searchInput">
+                <img src="../Assets/images/search.png" width="20" height="20" alt="" class="searchIcon">
+            </div>
+        </div>
+        <div class="navItem">
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a th:href="@{/login}" >
+                    <button class="nav-link">LOGIN!</button>
+                </a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a th:href="@{/dashboard}"><button class="nav-link">DASHBOARD!</button>
+                </a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a th:href="@{/logout}"><button class="nav-link">LOGOUT!</button></a>
+            </li>
+            <span class="limitedOffer">Limited Offer!</span>
+        </div>
+    </div>
+    <div class="navBottom">
+        <a th:href="@{/blist}">
+            <button class="menuItem">LIST!</button>
+        </a>
+        <h3 class="menuItem">JORDAN</h3>
+        <h3 class="menuItem">BLAZER</h3>
+        <h3 class="menuItem">CRATER</h3>
+        <h3 class="menuItem">HIPPIE</h3>
+    </div>
+</nav>
+<div class="slider">
+    <div class="sliderWrapper">
+        <div class="sliderItem">
+            <img src="../Assets/images/air.png" alt="" class="sliderImg">
+            <div class="sliderBg"></div>
+            <h1 class="sliderTitle">AIR FORCE<br> NEW<br> SEASON</h1>
+            <h2 class="sliderPrice">$119</h2>
+            <a th:href="@{/buy}">
+                <button class="buyButton">BUY NOW!</button>
+            </a>
+        </div>
+        <div class="sliderItem">
+            <img src="../Assets/images/blazer.png" alt="" class="sliderImg">
+            <div class="sliderBg"></div>
+            <h1 class="sliderTitle">BLAZER<br> MID<br> LIMITED</h1>
+            <h2 class="sliderPrice">$149</h2>
+            <a th:href="@{/buy}">
+                <button class="buyButton">BUY NOW!</button>
+            </a>
+        </div>
+        <div class="sliderItem">
+            <img src="../Assets/images/crater.png" alt="" class="sliderImg">
+            <div class="sliderBg"></div>
+            <h1 class="sliderTitle">CRATER<br> BASKETBALL<br> SHOES</h1>
+            <h2 class="sliderPrice">$99</h2>
+            <a th:href="@{/buy}">
+                <button class="buyButton">BUY NOW!</button>
+            </a>
+        </div>
+        <div class="sliderItem">
+            <img src="../Assets/images/hippie.png" alt="" class="sliderImg">
+            <div class="sliderBg"></div>
+            <h1 class="sliderTitle">HIPPIE<br> SHOES<br> NEW DESIGN</h1>
+            <h2 class="sliderPrice">$149</h2>
+            <a th:href="@{/buy}">
+                <button class="buyButton">BUY NOW!</button>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="features">
+    <div class="feature">
+        <img src="../Assets/images/shipping.png" alt="" class="featureIcon">
+        <span>Free Shipping</span>
+    </div>
+    <div class="feature">
+        <img src="../Assets/images/return.png" alt="" class="featureIcon">
+        <span>Free Returns</span>
+    </div>
+    <div class="feature">
+        <img src="../Assets/images/gift.png" alt="" class="featureIcon">
+        <span>Gift Cards</span>
+    </div>
+    <div class="feature">
+        <img src="../Assets/images/contact.png" alt="" class="featureIcon">
+        <span>Contact Us!</span>
+    </div>
+</div>
+<div class="product">
+    <img src="../Assets/images/air.png" alt="" class="productImg">
+    <div class="productDetails">
+        <h1 class="productTitle">AIR FORCE</h1>
+        <span class="productPrice">$119</span>
+        <p class="productDesc">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos velit tempore iste dolorum necessitatibus
+            porro recusandae omnis? Voluptate nostrum ducimus facilis quod minima nisi, consectetur adipisci impedit
+            libero harum voluptatum.
+        </p>
+        <div class="colors">
+            <div class="color"></div>
+            <div class="color"></div>
+            <div class="color"></div>
+        </div>
+        <div class="sizes">
+            <div class="size">S</div>
+            <div class="size">M</div>
+            <div class="size">L</div>
+        </div>
+        <button class="payButton">BUY NOW!</button>
+    </div>
+</div>
+<div class="gallery">
+    <div class="galleryItem">
+        <img src="../Assets/images/air.png" alt="" class="galleryImg">
+        <h1 class="galleryTitle">AIR FORCE</h1>
+    </div>
+    <div class="galleryItem">
+        <img src="../Assets/images/blazer.png" alt="" class="galleryImg">
+        <h1 class="galleryTitle">BLAZER</h1>
+    </div>
+    <div class="galleryItem">
+        <img src="../Assets/images/crater.png" alt="" class="galleryImg">
+        <h1 class="galleryTitle">CRATER</h1>
+    </div>
+    <div class="galleryItem">
+        <img src="../Assets/images/hippie.png" alt="" class="galleryImg">
+        <h1 class="galleryTitle">HIPPIE</h1>
+    </div>
+</div>
+<div class="newSeason">
+    <div class="nsItem">
+        <img src="../Assets/images/air.png" alt="" class="nsImg">
+        <h2 class="nsTitleSm">NEW SEASON</h2>
+        <h1 class="nsTitle">JORDAN</h1>
+        <button class="nsButton">SHOP NOW!</button>
+    </div>
+    <div class="nsItem">
+        <img src="../Assets/images/hippie.png" alt="" class="nsImg">
+        <h2 class="nsTitleSm">NEW SEASON</h2>
+        <h1 class="nsTitle">RUNNING</h1>
+        <button class="nsButton">SHOP NOW!</button>
+    </div>
+</div>
+<footer>
+    <div class="footerMenu">
+        <h1 class="fMenuTitle">Categories</h1>
+        <ul class="fList">
+            <li class="fListItem">Men</li>
+            <li class="fListItem">Women</li>
+            <li class="fListItem">Shoes</li>
+            <li class="fListItem">Accessories</li>
+            <li class="fListItem">New Arrivals</li>
+        </ul>
+    </div>
+    <div class="footerMenu">
+        <h1 class="fMenuTitle">Links</h1>
+        <ul class="fList">
+            <li class="fListItem">FAQ</li>
+            <li class="fListItem">Pages</li>
+            <li class="fListItem">Stores</li>
+            <li class="fListItem">Compare</li>
+            <li class="fListItem">Cookies</li>
+        </ul>
+    </div>
+    <div class="footerMenu">
+        <h1 class="fMenuTitle">About</h1>
+        <ul class="fList">
+            <li class="fListItem">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+            <li class="fListItem">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+            <li class="fListItem">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+            <li class="fListItem">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+            <li class="fListItem">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+        </ul>
+    </div>
+    <div class="footerMenu">
+        <h1 class="fMenuTitle">Contact</h1>
+        <div class="fMail">
+            <input type="text" placeholder="Enter your email..." class="fInput">
+            <button class="fButton">Join Now</button>
+        </div>
+        <div class="fIcons">
+            <img src="../Assets/images/facebook.png" alt="">
+            <img src="../Assets/images/twitter.png" alt="">
+            <img src="../Assets/images/instagram.png" alt="">
+            <img src="../Assets/images/pinterest.png" alt="">
+        </div>
+    </div>
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoe Categories</title>
+    <link rel="stylesheet" href= "../Assets/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: whitesmoke;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 40px 20px;
+        }
+
+        .category {
+            flex: 1;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .category h2 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        .category ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .category li {
+            margin-bottom: 10px;
+            font-size: 18px;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .running-shoes {
+            background-color: #ff6347; /* Tomato */
+        }
+
+        .basketball-shoes {
+            background-color: #4682b4; /* SteelBlue */
+        }
+
+        .casual-shoes {
+            background-color: #32cd32; /* LimeGreen */
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<nav>
+    <div class="navTop">
+        <div class="logo">Shoe Store</div>
+        <div class="search">
+            <input class="searchInput" type="text" placeholder="Search...">
+        </div>
+    </div>
+    <div class="navBottom">
+        <div class="menuItem">Home</div>
+        <div class="menuItem">Shop</div>
+        <div class="menuItem">Contact</div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="category running-shoes" th:if="${runningShoes1}==true">
+        <h2>Running Shoes</h2>
+        <ul>
+            <li th:each="shoe : ${Running_Shoes}" th:text="${shoe.name} + ' - $' + ${shoe.price}"></li>
+        </ul>
+    </div>
+    <div class="category basketball-shoes" th:if="${BasketballShoes}==true">
+        <h2>Basketball Shoes</h2>
+        <ul>
+            <li th:each="shoe : ${Basketball_Shoes}" th:text="${shoe.name} + ' - $' + ${shoe.price}"></li>
+        </ul>
+    </div>
+    <div class="category casual-shoes" th:if="${CasualShoes}==true">
+        <h2>Casual Shoes</h2>
+        <ul>
+            <li th:each="shoe : ${Casual_Shoes}" th:text="${shoe.name} + ' - $' + ${shoe.price}"></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footerLeft">
+        <div class="fMenuTitle">Categories</div>
+        <ul class="fList">
+            <li class="fListItem">Running Shoes</li>
+            <li class="fListItem">Basketball Shoes</li>
+            <li class="fListItem">Casual Shoes</li>
+        </ul>
+        <ul class="fList">
+            <li class="fListItem">Terms</li>
+            <li class="fListItem">Privacy</li>
+            <li class="fListItem">Contact</li>
+        </ul>
+    </div>
+    <div class="footerRight">
+        <input type="text" class="fInput" placeholder="Your email">
+        <button class="fButton">Subscribe</button>
+        <div class="fIcons">
+            <div class="fIcon">FB</div>
+            <div class="fIcon">IG</div>
+            <div class="fIcon">TW</div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>style</title>
+</head>
+<body>
+<style>
+    body {
+        font-family: 'Lato', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    nav {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+    }
+
+    .navTop, .navBottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navItem {
+        display: flex;
+        align-items: center;
+    }
+
+    .navItem img {
+        width: 50px;
+        margin-right: 10px;
+    }
+
+    .search {
+        display: flex;
+        align-items: center;
+    }
+
+    .searchInput {
+        padding: 5px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .searchIcon {
+        margin-left: 10px;
+    }
+
+    .limitedOffer {
+        background-color: red;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+    .menuItem {
+        cursor: pointer;
+        margin: 0 10px;
+    }
+
+    .slider {
+        display: flex;
+        overflow-x: scroll;
+        padding: 20px 0;
+        background-color: #000;
+    }
+
+    .sliderWrapper {
+        display: flex;
+    }
+
+    .sliderItem {
+        position: relative;
+        margin: 0 10px;
+    }
+
+    .sliderImg {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .sliderBg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+    }
+
+    .sliderTitle, .sliderPrice, .buyButton {
+        position: absolute;
+        color: #fff;
+        z-index: 10;
+    }
+
+    .sliderTitle {
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+    }
+
+    .sliderPrice {
+        bottom: 60px;
+        left: 20px;
+        font-size: 18px;
+    }
+
+    .buyButton {
+        bottom: 20px;
+        left: 20px;
+        padding: 10px 20px;
+        background-color: red;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .features {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        background-color: #fff;
+    }
+
+    .feature {
+        flex: 1;
+        text-align: center;
+        padding: 10px;
+        margin: 0 10px;
+    }
+
+    .featureIcon {
+        width: 50px;
+    }
+
+    .product {
+        display: flex;
+        padding: 20px;
+        background-color: #fff;
+        margin-top: 20px;
+    }
+
+    .productImg {
+        width: 50%;
+    }
+
+    .productDetails {
+        padding: 20px;
+        flex: 1;
+    }
+
+    .productTitle {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .productPrice {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .productDesc {
+        margin-bottom: 20px;
+    }
+
+    .colors, .sizes {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .color, .size {
+        width: 30px;
+        height: 30px;
+        background-color: #ccc;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .payButton {
+        background-color: red;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .gallery, .newSeason {
+        display: flex;
+        padding: 20px;
+        background-color: #fff;
+        margin-top: 20px;
+    }
+
+    .galleryItem, .nsItem {
+        flex: 1;
+        margin: 0 10px;
+        position: relative;
+    }
+
+    .galleryTitle, .nsTitle, .nsTitleSm {
+        position: absolute;
+        z-index: 10;
+        color: #fff;
+    }
+
+    .galleryTitle {
+        bottom: 20px;
+        left: 20px;
+        font-size: 24px;
+    }
+
+    .nsTitleSm {
+        top: 20px;
+        left: 20px;
+    }
+
+    .nsTitle {
+        top: 40px;
+        left: 20px;
+        font-size: 24px;
+    }
+
+    .nsButton {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        padding: 10px 20px;
+        background-color: red;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        background-color: #333;
+        color: #fff;
+    }
+
+    .footerMenu {
+        flex: 1;
+        margin: 0 10px;
+    }
+
+    .fMenuTitle {
+        margin-bottom: 10px;
+    }
+
+    .fList {
+        list-style: none;
+        padding: 0;
+    }
+
+    .fListItem {
+        margin-bottom: 5px;
+        cursor: pointer;
+    }
+
+    .fMail, .fIcons {
+        display: flex;
+        align-items: center;
+    }
+
+    .fInput {
+        padding: 5px;
+        border: none;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+
+    .fButton {
+        background-color: red;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .fIcons img {
+        width: 30px;
+        margin-right: 10px;
+    }
+</style>
+</body>
+</html>
