@@ -21,9 +21,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
         MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
-
-        http.csrf(csrf -> csrf.ignoringRequestMatchers(mvcMatcherBuilder.pattern("/saveMsg"))
-                        .ignoringRequestMatchers(PathRequest.toH2Console()))
+        //  http.csrf(csrf ->csrf.ignoringRequestMatchers(mvcMatcherBuilder.pattern("/saveMsg"))
+        http.csrf(csrf -> csrf.ignoringRequestMatchers(PathRequest.toH2Console()))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(mvcMatcherBuilder.pattern("/"), mvcMatcherBuilder.pattern("/home")).permitAll() // Corrected pattern matchers
                         .requestMatchers(mvcMatcherBuilder.pattern("/dashboard")).authenticated()

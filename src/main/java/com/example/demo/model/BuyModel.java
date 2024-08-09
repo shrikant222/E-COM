@@ -4,32 +4,38 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
-public class BuyModel extends BaseEntity{
-@NotBlank(message = "name should not Blank")
-String name;
-@NotNull
-@Min(value = 1, message = "TOO small")
-@Max(value = 120, message = "TOO BIG")
-int age;
-@NotBlank(message = "email should not Blank")
-@Email
-String email;
-@NotBlank(message = "contact should not Blank")
-@Pattern(regexp ="(^$|[0-9]{10})" , message = "Enter valid number")
-String contact;
-@Pattern(regexp ="(^$|[0-9]{6})" , message = "Enter valid pincode")
-@NotBlank(message = "pincode should not Blank")
-String pincode;
-@NotBlank(message = "city should not Blank")
-String city;
-@NotBlank(message = "country should not Blank")
-String country;
-@NotBlank(message = "size should not Blank")
-String size;
+public class BuyModel extends BaseEntity {
+    @NotBlank(message = "Name should not be blank")
+    String name;
 
-String additional_info;
+    @NotNull(message = "Age should not be null")
+    @Min(value = 1, message = "Select Age")
+    @Max(value = 120, message = "Age is too big")
+    int age;
 
-private String status;
+    @NotBlank(message = "Email should not be blank")
+    @Email(message = "Enter a valid email")
+    String email;
 
+    @NotBlank(message = "Contact should not be blank")
+    @Pattern(regexp = "(^$|[0-9]{10})", message = "Enter a valid number")
+    String contact;
 
+    @NotBlank(message = "Pincode should not be blank")
+    @Pattern(regexp = "(^$|[0-9]{6})", message = "Enter a valid pincode")
+    String pincode;
+
+    @NotBlank(message = "City should not be blank")
+    String city;
+
+    @NotBlank(message = "Country should not be blank")
+    String country;
+
+    @Min(value = 6, message = "Size not available")
+    @Max(value = 12, message = "Size not available")
+    int size;
+
+    String additional_info;
+
+    private String status;
 }

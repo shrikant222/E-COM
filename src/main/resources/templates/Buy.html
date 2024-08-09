@@ -147,7 +147,7 @@
         </div>
         <div>
             <label for="size">Size:</label>
-            <input type="text" id="size" th:field="*{size}" />
+            <input type="number" id="size" th:field="*{size}" />
             <span th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></span>
         </div>
         <div>

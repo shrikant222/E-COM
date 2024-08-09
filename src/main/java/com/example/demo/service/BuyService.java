@@ -6,6 +6,8 @@ import com.example.demo.constants.Constants;
 import com.example.demo.model.BuyModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,8 +21,9 @@ public class BuyService {
 
     public boolean saveMessageDetails(BuyModel buyModel) {
     boolean saves = false;
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     buyModel.setStatus(Constants.OPEN);
-    buyModel.setCreatedBy(Constants.ANONYMOUS);
+    buyModel.setCreatedBy(authentication.getName());
     buyModel.setCreatedAt(LocalDateTime.now());
     int result= BuyRepo.saveBuyer(buyModel);
     if(result>0){
