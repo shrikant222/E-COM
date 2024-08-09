@@ -25,11 +25,10 @@ String city;
 @NotBlank(message = "country should not Blank")
 String country;
 @NotBlank(message = "size should not Blank")
-@Min(value = 6, message = "Size Not Available")
-@Max(value = 12, message = "Size Not Available")
 String size;
 
 String additional_info;
+
 private String status;
 
 

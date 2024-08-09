@@ -1,50 +1,59 @@
 package com.example.demo.webconfg;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/dashboard").authenticated()
-                        .requestMatchers("/", "/home").permitAll() // Permit access to home
-                        .requestMatchers("/list/**").permitAll()
-                        .requestMatchers("/blist/**").permitAll() // Permit access to list and its subpaths
-                        .requestMatchers("/saveMsg").permitAll() // Permit access to saveMsg
-                        .requestMatchers("/Assets/**").permitAll()
-                        .requestMatchers("/login").permitAll() // Correct path for login
-                        .anyRequest().authenticated()) // Require authentication for other requests
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
+        MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
 
-                .formLogin((form) -> form
+        http.csrf(csrf -> csrf.ignoringRequestMatchers(mvcMatcherBuilder.pattern("/saveMsg"))
+                        .ignoringRequestMatchers(PathRequest.toH2Console()))
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers(mvcMatcherBuilder.pattern("/"), mvcMatcherBuilder.pattern("/home")).permitAll() // Corrected pattern matchers
+                        .requestMatchers(mvcMatcherBuilder.pattern("/dashboard")).authenticated()
+                        .requestMatchers(mvcMatcherBuilder.pattern("/list/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/blist/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/saveMsg")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/Assets/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
+                        .requestMatchers(PathRequest.toH2Console()).permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/dashboard")
                         .failureUrl("/login?error=true")
                         .permitAll())
-                .logout((logout) -> logout
+                .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/login?logout=true")
                         .invalidateHttpSession(true)
                         .permitAll());
+
+        http.headers(headersConfigurer -> headersConfigurer
+                .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
 
         return http.build();
     }
 
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-        UserDetails Admin = User.withDefaultPasswordEncoder()
+        UserDetails admin = User.withDefaultPasswordEncoder()
                 .username("admin")
                 .password("admin")
                 .roles("ADMIN", "USER")
@@ -55,6 +64,6 @@ public class SecurityConfig {
                 .roles("USER")
                 .build();
 
-        return new InMemoryUserDetailsManager(Admin, user);
+        return new InMemoryUserDetailsManager(admin, user);
     }
 }

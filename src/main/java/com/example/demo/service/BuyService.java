@@ -1,19 +1,33 @@
 package com.example.demo.service;
 
+import com.example.demo.Repository.BuyRepo;
+import com.example.demo.constants.Constants;
+
 import com.example.demo.model.BuyModel;
 import lombok.extern.slf4j.Slf4j;
-import lombok.extern.slf4j.XSlf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.ApplicationScope;
-import org.springframework.web.context.annotation.RequestScope;
-import org.springframework.web.context.annotation.SessionScope;
+
+import java.time.LocalDateTime;
 
 @Slf4j
 @Service
-@SessionScope
 public class BuyService {
 
-    public void saveMessageDetails(BuyModel buyModel) {
-    log.info(buyModel.toString());
+    @Autowired
+    private BuyRepo BuyRepo;
+
+    public boolean saveMessageDetails(BuyModel buyModel) {
+    boolean saves = false;
+    buyModel.setStatus(Constants.OPEN);
+    buyModel.setCreatedBy(Constants.ANONYMOUS);
+    buyModel.setCreatedAt(LocalDateTime.now());
+    int result= BuyRepo.saveBuyer(buyModel);
+    if(result>0){
+        saves = true;
+    }
+    return saves;
+
+
     }
 }
