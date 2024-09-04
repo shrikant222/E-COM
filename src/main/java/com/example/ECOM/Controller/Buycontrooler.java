@@ -1,7 +1,7 @@
-package com.example.demo.Controller;
+package com.example.ECOM.Controller;
 
-import com.example.demo.model.BuyModel;
-import com.example.demo.service.BuyService;
+import com.example.ECOM.model.BuyModel;
+import com.example.ECOM.service.BuyService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
+import java.util.List;
 @Slf4j
 @Controller
 public class Buycontrooler {
@@ -30,18 +29,6 @@ public class Buycontrooler {
         return "Buy";
     }
 
-/*@RequestMapping(value = "/saveMsg",method = POST)
-    public ModelAndView saveMessage(@RequestParam String name, @RequestParam String mobileNum,
-                                    @RequestParam String email, @RequestParam String subject, @RequestParam String message) {
-        log.info("Name : " + name);
-        log.info("Mobile Number : " + mobileNum);
-        log.info("Email Address : " + email);
-        log.info("Subject : " + subject);
-        log.info("Message : " + message);
-        return new ModelAndView("redirect:/contact");
-    }*/
-
-
     @PostMapping(value = "/saveMsg")
     public String buycontrooler(@Valid @ModelAttribute("buyModel") BuyModel buyModel,  Errors errors) {
         if(errors.hasErrors()){
@@ -51,6 +38,15 @@ public class Buycontrooler {
         buyService.saveMessageDetails(buyModel);
 
         return "shrikant";
+    }
+
+    @RequestMapping("/displayMessages")
+    public ModelAndView displaycontrooler(Model model) {
+        ModelAndView mav = new ModelAndView("messages");
+        List<BuyModel> buyers=buyService.findBuyers();
+        mav.addObject("buyers", buyers);
+        return mav;
+
     }
 
 

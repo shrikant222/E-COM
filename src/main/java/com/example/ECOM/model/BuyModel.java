@@ -1,10 +1,11 @@
-package com.example.demo.model;
+package com.example.ECOM.model;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
 public class BuyModel extends BaseEntity {
+    private int ID;
     @NotBlank(message = "Name should not be blank")
     String name;
 
@@ -37,5 +38,5 @@ public class BuyModel extends BaseEntity {
 
     String additional_info;
 
-    private String status;
+     String status;
 }

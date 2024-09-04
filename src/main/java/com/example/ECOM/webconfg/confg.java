@@ -1,4 +1,4 @@
-package com.example.demo.webconfg;
+package com.example.ECOM.webconfg;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

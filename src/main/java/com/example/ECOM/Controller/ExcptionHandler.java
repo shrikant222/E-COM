@@ -1,4 +1,4 @@
-package com.example.demo.Controller;
+package com.example.ECOM.Controller;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

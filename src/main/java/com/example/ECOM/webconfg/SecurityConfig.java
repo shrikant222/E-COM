@@ -1,4 +1,4 @@
-package com.example.demo.webconfg;
+package com.example.ECOM.webconfg;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +26,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(mvcMatcherBuilder.pattern("/"), mvcMatcherBuilder.pattern("/home")).permitAll() // Corrected pattern matchers
                         .requestMatchers(mvcMatcherBuilder.pattern("/dashboard")).authenticated()
+                        .requestMatchers(mvcMatcherBuilder.pattern("/displayMessages")).hasRole("ADMIN")
                         .requestMatchers(mvcMatcherBuilder.pattern("/list/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/blist/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/saveMsg")).permitAll()
@@ -55,7 +56,7 @@ public class SecurityConfig {
         UserDetails admin = User.withDefaultPasswordEncoder()
                 .username("admin")
                 .password("admin")
-                .roles("ADMIN", "USER")
+                .roles("ADMIN")
                 .build();
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username("user")
