@@ -22,13 +22,15 @@ public class BuyRepo {
     public int saveBuyer(BuyModel buyModel) {
         String sql = "INSERT INTO buyer (name, age, email, contact, pincode, city, country, size, additional_info, status, created_at, created_by) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
         return jdbcTemplate.update(sql, buyModel.getName(), buyModel.getAge(), buyModel.getEmail(), buyModel.getContact(),
                 buyModel.getPincode(), buyModel.getCity(), buyModel.getCountry(), buyModel.getSize(),
                 buyModel.getAdditional_info(), buyModel.getStatus(), buyModel.getCreatedAt(), buyModel.getCreatedBy());
     }
+
+
     public List<BuyModel> findmsgWithOpenStatus(String status) {
         String sql = "SELECT * FROM `buyer` WHERE `status` = ?";
-        ;
         return jdbcTemplate.query(sql,new PreparedStatementSetter(){
             public void setValues(PreparedStatement ps) throws SQLException {
                 ps.setString(1, status);

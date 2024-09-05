@@ -10,7 +10,7 @@ public class BuyModelRowMapper implements RowMapper<BuyModel> {
     @Override
     public BuyModel mapRow(ResultSet rs, int rowNum) throws SQLException {
         BuyModel buyModel = new BuyModel();
-        buyModel.setID((int) rs.getInt("ID"));
+        buyModel.setBuyer_id(rs.getInt("buyer_id"));
         buyModel.setName(rs.getString("NAME"));
         buyModel.setAge(rs.getInt("AGE"));
         buyModel.setEmail(rs.getString("EMAIL"));

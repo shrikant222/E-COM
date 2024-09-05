@@ -5,7 +5,8 @@ import lombok.Data;
 
 @Data
 public class BuyModel extends BaseEntity {
-    private int ID;
+    private int buyer_id; // Change from ID to buyer_id to match the table
+
     @NotBlank(message = "Name should not be blank")
     String name;
 
@@ -32,11 +33,13 @@ public class BuyModel extends BaseEntity {
     @NotBlank(message = "Country should not be blank")
     String country;
 
-    @Min(value = 6, message = "Size not available")
+    @Min(value =0, message = "Size not available")
     @Max(value = 12, message = "Size not available")
-    int size;
+    int size; // You may also change this to String if needed
 
+    @Size(max = 500, message = "Additional info cannot exceed 500 characters")
     String additional_info;
 
-     String status;
+    @Size(max = 10, message = "Status cannot exceed 10 characters")
+    String status;
 }

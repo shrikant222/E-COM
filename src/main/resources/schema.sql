@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `Buyer` (
+CREATE TABLE IF NOT EXISTS `buyer` (
   `buyer_id` int AUTO_INCREMENT  PRIMARY KEY,
   `name` varchar(100) NOT NULL,
   `age` varchar(10) NOT NULL,

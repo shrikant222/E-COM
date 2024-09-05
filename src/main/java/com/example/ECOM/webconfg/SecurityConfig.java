@@ -1,6 +1,5 @@
 package com.example.ECOM.webconfg;
 
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,10 +20,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
         MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
-        //  http.csrf(csrf ->csrf.ignoringRequestMatchers(mvcMatcherBuilder.pattern("/saveMsg"))
-        http.csrf(csrf -> csrf.ignoringRequestMatchers(PathRequest.toH2Console()))
+
+        // Removed the H2 console CSRF exemption and frame options since it's no longer needed
+        http.csrf(csrf -> csrf.ignoringRequestMatchers(mvcMatcherBuilder.pattern("/saveMsg"))) // Allow POST requests to /saveMsg without CSRF
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers(mvcMatcherBuilder.pattern("/"), mvcMatcherBuilder.pattern("/home")).permitAll() // Corrected pattern matchers
+                        .requestMatchers(mvcMatcherBuilder.pattern("/"), mvcMatcherBuilder.pattern("/home")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/dashboard")).authenticated()
                         .requestMatchers(mvcMatcherBuilder.pattern("/displayMessages")).hasRole("ADMIN")
                         .requestMatchers(mvcMatcherBuilder.pattern("/list/**")).permitAll()
@@ -32,7 +32,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/saveMsg")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/Assets/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
-                        .requestMatchers(PathRequest.toH2Console()).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/messages")).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -44,9 +44,6 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout=true")
                         .invalidateHttpSession(true)
                         .permitAll());
-
-        http.headers(headersConfigurer -> headersConfigurer
-                .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
 
         return http.build();
     }
@@ -66,4 +63,16 @@ public class SecurityConfig {
 
         return new InMemoryUserDetailsManager(admin, user);
     }
+
+    // To enable MySQL authentication, you can replace the InMemoryUserDetailsManager with JdbcUserDetailsManager or a custom UserDetailsService
+    // Example configuration (assuming you have a MySQL database set up):
+    /*
+    @Autowired
+    private DataSource dataSource;
+
+    @Bean
+    public JdbcUserDetailsManager jdbcUserDetailsManager() {
+        return new JdbcUserDetailsManager(dataSource);
+    }
+    */
 }
