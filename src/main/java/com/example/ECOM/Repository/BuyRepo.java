@@ -1,5 +1,6 @@
 package com.example.ECOM.Repository;
 
+import com.example.ECOM.constants.Constants;
 import com.example.ECOM.model.BuyModel;
 import com.example.ECOM.rommappers.BuyModelRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -37,5 +40,32 @@ public class BuyRepo {
             }
         },new BuyModelRowMapper());
     }
+
+
+
+    public int closeMsg(int id, String name,String status) {
+        String sql = "UPDATE `buyer` SET `updated_by` = ?, `updated_at` = ?, `status` = ? WHERE `buyer_id` = ?";
+        return jdbcTemplate.update(sql, new PreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+                ps.setString(1, name);
+                ps.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+                ps.setString(3, status);
+                ps.setInt(4, id);
+
+            }
+        });
+    }
+//    public int updateMsgStatus(int contactId, String status,String updatedBy) {
+//        String sql = "update contact_msg set status = ?, updated_by = ?,updated_at =? where contact_id = ?";
+//        return jdbcTemplate.update(sql,new PreparedStatementSetter() {
+//            public void setValues(PreparedStatement preparedStatement) throws SQLException {
+//                preparedStatement.setString(1, status);
+//                preparedStatement.setString(2, updatedBy);
+//                preparedStatement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+//                preparedStatement.setInt(4, contactId);
+//            }
+//        });
+//    }
 
 }

@@ -35,7 +35,9 @@ public class BuyService {
 
     }
     public List<BuyModel> findBuyers(){
-        List<BuyModel> buyers= BuyRepo.findmsgWithOpenStatus(Constants.OPEN);
-        return buyers;
+        return BuyRepo.findmsgWithOpenStatus(Constants.OPEN);
     }
+   public void closeMsg(int id, String name){
+       BuyRepo.closeMsg(id,name,Constants.CLOSE);
+   }
 }

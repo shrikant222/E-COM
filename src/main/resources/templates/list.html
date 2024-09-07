@@ -57,6 +57,18 @@
         .casual-shoes {
             background-color: #32cd32; /* LimeGreen */
         }
+        .lifestyle-shoes{
+            background-color: yellowgreen;
+        }
+        .menuItem {
+            margin-right: 50px;
+            cursor: progress;
+            color: #0dcaf0;
+            font-weight: 500;
+            background-color: #2c3034;
+            text-decoration: underline;
+
+        }
     </style>
 </head>
 <body>
@@ -69,33 +81,52 @@
         </div>
     </div>
     <div class="navBottom">
-        <div class="menuItem">Home</div>
-        <div class="menuItem">Shop</div>
-        <div class="menuItem">Contact</div>
+        <a th:href="@{/home}"><button class="menuItem">Home</button>
+        </a>
+
+        <a th:href="@{/buy}"><button class="menuItem">Shop</button>
+        </a>
+        <a th:href="@{/buy}" class="menuItem">Contact</a>
+
     </div>
 </nav>
 
 <!-- Main Content -->
 <div class="container">
-    <div class="category running-shoes" th:if="${runningShoes1}==true">
+    <!-- Running Shoes Category -->
+    <div class="category running-shoes" th:if="${runningShoes}">
         <h2>Running Shoes</h2>
         <ul>
             <li th:each="shoe : ${Running_Shoes}" th:text="${shoe.name} + ' - $' + ${shoe.price}"></li>
         </ul>
     </div>
-    <div class="category basketball-shoes" th:if="${BasketballShoes}==true">
+
+    <!-- Basketball Shoes Category -->
+    <div class="category basketball-shoes" th:if="${BasketballShoes}">
         <h2>Basketball Shoes</h2>
         <ul>
             <li th:each="shoe : ${Basketball_Shoes}" th:text="${shoe.name} + ' - $' + ${shoe.price}"></li>
         </ul>
     </div>
-    <div class="category casual-shoes" th:if="${CasualShoes}==true">
+
+    <!-- Casual Shoes Category -->
+    <div class="category casual-shoes" th:if="${CasualShoes}">
         <h2>Casual Shoes</h2>
         <ul>
             <li th:each="shoe : ${Casual_Shoes}" th:text="${shoe.name} + ' - $' + ${shoe.price}"></li>
         </ul>
     </div>
+
+    <!-- Lifestyle Shoes Category -->
+    <div class="category lifestyle-shoes" th:if="${LifestyleShoes}">
+        <h2>Lifestyle Shoes</h2>
+        <ul>
+            <li th:each="shoe : ${Lifestyle_Shoes}" th:text="${shoe.name} + ' - $' + ${shoe.price}"></li>
+        </ul>
+    </div>
+
 </div>
+
 
 <!-- Footer -->
 <footer>

@@ -15,10 +15,12 @@ public class ListModel {
     }
 
 
-    public enum Type{
-       Casual_Shoes,
-       Basketball_Shoes,
-       Running_Shoes;
-   }
+    public enum Type {
+        Casual_Shoes,
+        Basketball_Shoes,
+        Running_Shoes,
+        Lifestyle_Shoes;  // Add this line
+    }
+
 
 }
