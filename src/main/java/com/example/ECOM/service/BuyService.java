@@ -2,7 +2,6 @@ package com.example.ECOM.service;
 
 import com.example.ECOM.Repository.BuyRepo;
 import com.example.ECOM.constants.Constants;
-
 import com.example.ECOM.model.BuyModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,27 +16,28 @@ import java.util.List;
 @Service
 public class BuyService {
 
+    private final BuyRepo buyRepo;
+
     @Autowired
-    private BuyRepo BuyRepo;
-
-    public boolean saveMessageDetails(BuyModel buyModel) {
-    boolean saves = false;
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    buyModel.setStatus(Constants.OPEN);
-    buyModel.setCreatedBy(authentication.getName());
-    buyModel.setCreatedAt(LocalDateTime.now());
-    int result= BuyRepo.saveBuyer(buyModel);
-    if(result>0){
-        saves = true;
+    public BuyService(BuyRepo buyRepo) {
+        this.buyRepo = buyRepo;
     }
-    return saves;
 
+    public void saveMessageDetails(BuyModel buyModel) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        buyModel.setStatus(Constants.OPEN);
+        buyModel.setCreatedBy(authentication.getName());
+        buyModel.setCreatedAt(LocalDateTime.now());
+        buyRepo.save(buyModel);
 
     }
-    public List<BuyModel> findBuyers(){
-        return BuyRepo.findmsgWithOpenStatus(Constants.OPEN);
+
+    public List<BuyModel> findBuyers() {
+        return buyRepo.findByStatus(Constants.OPEN);
     }
-   public void closeMsg(int id, String name){
-       BuyRepo.closeMsg(id,name,Constants.CLOSE);
-   }
+
+    public void closeMsg(int id, String name) {
+        buyRepo.updateMessageStatus(id, name, Constants.CLOSE, LocalDateTime.now());
+    }
 }

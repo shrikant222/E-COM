@@ -1,9 +1,10 @@
 package com.example.ECOM.model;
 
+import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-
+@MappedSuperclass
 @Data
 public class BaseEntity {
 

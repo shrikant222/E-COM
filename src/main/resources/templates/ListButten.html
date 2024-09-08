@@ -12,7 +12,7 @@
             const LifestyleShoes = document.getElementById('LifestyleShoes').checked; // Include Lifestyle Shoes
 
             // Updated URL with lifestyleShoes included
-            const url = `/list?runningShoes=${runningShoes}&BasketballShoes=${basketballShoes}&CasualShoes=${casualShoes}&LifestyleShoes=${LifestyleShoes}`;
+            const url = `/list?runningShoes=${runningShoes}&basketballShoes=${basketballShoes}&casualShoes=${casualShoes}&lifestyleShoes=${LifestyleShoes}`;
             window.location.href = url;
         }
     </script>
@@ -24,12 +24,13 @@
 <div class="container">
     <h1>Select Shoe Categories</h1>
     <div>
+
         <input type="checkbox" id="runningShoes" name="runningShoes" checked>
         <label for="runningShoes">Running Shoes</label>
     </div>
-    <div>
-        <input type="checkbox" id="basketballShoes" name="basketballShoes" checked>
+    <div><input type="checkbox" id="basketballShoes" name="basketballShoes" checked>
         <label for="basketballShoes">Basketball Shoes</label>
+
     </div>
     <div>
         <input type="checkbox" id="casualShoes" name="casualShoes" checked>

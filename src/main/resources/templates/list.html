@@ -101,16 +101,20 @@
         </ul>
     </div>
 
+
+
     <!-- Basketball Shoes Category -->
-    <div class="category basketball-shoes" th:if="${BasketballShoes}">
+    <div class="category basketball-shoes" th:if="${basketballShoes}">
         <h2>Basketball Shoes</h2>
         <ul>
             <li th:each="shoe : ${Basketball_Shoes}" th:text="${shoe.name} + ' - $' + ${shoe.price}"></li>
         </ul>
     </div>
 
+
+
     <!-- Casual Shoes Category -->
-    <div class="category casual-shoes" th:if="${CasualShoes}">
+    <div class="category casual-shoes" th:if="${casualShoes}">
         <h2>Casual Shoes</h2>
         <ul>
             <li th:each="shoe : ${Casual_Shoes}" th:text="${shoe.name} + ' - $' + ${shoe.price}"></li>
@@ -118,7 +122,7 @@
     </div>
 
     <!-- Lifestyle Shoes Category -->
-    <div class="category lifestyle-shoes" th:if="${LifestyleShoes}">
+    <div class="category lifestyle-shoes" th:if="${lifestyleShoes}">
         <h2>Lifestyle Shoes</h2>
         <ul>
             <li th:each="shoe : ${Lifestyle_Shoes}" th:text="${shoe.name} + ' - $' + ${shoe.price}"></li>
