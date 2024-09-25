@@ -5,7 +5,6 @@ import com.example.ECOM.service.BuyService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -37,6 +36,7 @@ public class Buycontrooler {
             log.error("Contact form validation failed due to : {}", errors);
             return "Buy";
         }
+
         buyService.saveMessageDetails(buyModel);
 
         return "shrikant";
@@ -51,9 +51,9 @@ public class Buycontrooler {
 
     }
 
-    @RequestMapping(value = "/closeMsg", method = RequestMethod.GET)
-    public String closeController(@RequestParam int id, Authentication authentication) {
-        buyService.closeMsg(id, authentication.getName());
+    @GetMapping("/closeMsg")
+    public String closeController(@RequestParam int id) {
+        buyService.closeMsg(id);
         return "redirect:/displayMessages";
     }
 

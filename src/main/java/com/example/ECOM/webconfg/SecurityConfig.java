@@ -1,10 +1,8 @@
 package com.example.ECOM.webconfg;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -22,7 +20,7 @@ public class SecurityConfig {
         MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
 
         // Removed the H2 console CSRF exemption and frame options since it's no longer needed
-        http.csrf(csrf -> csrf.ignoringRequestMatchers(mvcMatcherBuilder.pattern("/saveMsg"))) // Allow POST requests to /saveMsg without CSRF
+        http.csrf(csrf -> csrf.ignoringRequestMatchers(mvcMatcherBuilder.pattern("/public/**"))) // Allow POST requests to /saveMsg without CSRF
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(mvcMatcherBuilder.pattern("/"), mvcMatcherBuilder.pattern("/home")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/dashboard")).authenticated()
@@ -33,6 +31,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/Assets/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/messages")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/public/**")).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")

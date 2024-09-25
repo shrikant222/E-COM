@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="en">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -144,9 +143,9 @@
                     </div>
                     <div class="col-md-8 login-center text-start">
                         <button class="btn btn-style btn-style-3 text-left">Log In</button>
-                        <a class="new-user text-right" href="">New User ?</a>
-
+                        <a th:href="@{/public/register}">New User?</a>
                     </div>
+
                 </form>
             </div>
         </div>
@@ -206,7 +205,7 @@
             </div>
         </div>
         <div class="footerRightMenu">
-            <span class="copyright">@Lama Dev. All rights reserved. 2022.</span>
+            <span class="copyright">All rights reserved.</span>
         </div>
     </div>
 </footer>
@@ -237,17 +236,7 @@
         document.documentElement.scrollTop = 0;
     }
 </script>
-<!-- //move top -->
 
-<!-- common jquery plugin -->
-<!--<script src="Assets/js/jquery-3.3.1.min.js"></script>-->
-<!-- //common jquery plugin -->
-
-<!-- theme switch js (light and dark)-->
-<!--<script src="assets/js/theme-change.js"></script>-->
-<!-- //theme switch js (light and dark)-->
-
-<!-- MENU-JS -->
 <script>
     $(window).on("scroll", function () {
         var scroll = $(window).scrollTop();
