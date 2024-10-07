@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 public class Address extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int address_id;
 
 
@@ -28,7 +28,7 @@ public class Address extends BaseEntity {
     private String state;
     @NotBlank(message = "Not Blankkk plz")
     @Pattern(regexp = "(^$|\\d{5})")
-    private int zip_code;
+    private String zip_code;
 
 
 

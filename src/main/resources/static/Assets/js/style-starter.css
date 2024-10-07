@@ -21535,9 +21535,11 @@ label {
   width: 50% !important;
 }
 
+
 .control-label:after {
-   content:"*";
-   color:red;
+  content: "*";
+  color: red;
+  margin-left: 5px;
 }
 
 .close:not(:disabled):not(.disabled) {

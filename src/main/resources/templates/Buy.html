@@ -109,7 +109,7 @@
     </ul>
 
     <h1>Buy Form</h1>
-    <form th:action="@{/saveMsg}" method="post" th:object="${buyModel}">
+    <form th:action="@{/saveMsg}" method="post" class="signin-form"  th:object="${buyModel}">
         <div>
             <label for="name">Name:</label>
             <input type="text" id="name" th:field="*{name}" />

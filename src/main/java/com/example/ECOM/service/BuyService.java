@@ -41,6 +41,7 @@ public class BuyService {
 
     public void closeMsg(int id) {
         Optional<BuyModel> buymodel = buyRepo.findById(id);
+
         if (buymodel.isPresent()) {
             BuyModel model = buymodel.get();
             model.setStatus(Constants.CLOSE);

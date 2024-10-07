@@ -19,7 +19,8 @@ target/
 *.iml
 *.ipr
 # Ignore application.properties specifically
-application.properties
+src/main/resources/application.properties
+src/main/resources/schema.sql
 
 ### NetBeans ###
 /nbproject/private/
